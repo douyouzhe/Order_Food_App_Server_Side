@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "235296162845",
+    "firebase_url": "https://orderfood-b71a2.firebaseio.com",
+    "project_id": "orderfood-b71a2",
+    "storage_bucket": "orderfood-b71a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235296162845:android:150e181dfcf11694",
+        "android_client_info": {
+          "package_name": "com.example.youzhedou.order_food_app_server_side"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235296162845-4162jo8i6rdsuf3918safca75o21aa92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.youzhedou.order_food_app_server_side",
+            "certificate_hash": "c1b34aa10b1daed9c6b6b8ceaddd682ea2984c6e"
+          }
+        },
+        {
+          "client_id": "235296162845-5nfobncmru46jcakthf46dtf0esvjc8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgyS4h46Bo-2iEwoiIVjSMeVoUR4zn3iU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235296162845-5nfobncmru46jcakthf46dtf0esvjc8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235296162845:android:45824d90ab5c988f",
+        "android_client_info": {
+          "package_name": "com.example.youzhedou.orderfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235296162845-e7ip2mh6ai02b8s3t1bvu88g9apl9fba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.youzhedou.orderfood",
+            "certificate_hash": "c1b34aa10b1daed9c6b6b8ceaddd682ea2984c6e"
+          }
+        },
+        {
+          "client_id": "235296162845-5nfobncmru46jcakthf46dtf0esvjc8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgyS4h46Bo-2iEwoiIVjSMeVoUR4zn3iU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235296162845-5nfobncmru46jcakthf46dtf0esvjc8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
