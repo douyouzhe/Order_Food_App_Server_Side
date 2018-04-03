@@ -15,10 +15,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.youzhedou.order_food_app_server_side.Model.Category;
+import com.example.youzhedou.order_food_app_server_side.ViewHolder.MenuViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     Button buttonSignIn;
     TextView textSlogan;
+
+//    FirebaseDatabase database;
+//    DatabaseReference category;
+//    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
+
 
 
     @Override
