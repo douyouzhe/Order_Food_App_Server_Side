@@ -10,4 +10,5 @@ public class Common {
     public static final String DELETE = "Delete";
     public static final String CANCEL = "Cancel";
     public static final String CREATE = "Create";
+    public static final int PICK_IMAGE_REQUEST = 71;
 }
