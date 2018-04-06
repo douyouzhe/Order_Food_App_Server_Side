@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -232,5 +233,127 @@ public class FoodList extends AppCompatActivity {
             saveUri = data.getData();
             buttonSelect.setText("Image Selected");
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getTitle().equals(Common.UPDATE)){
+            showUpdateFoodDialog(adapter.getRef(item.getOrder()).getKey(),
+                    adapter.getItem(item.getOrder()));
+
+        }else  if(item.getTitle().equals(Common.DELETE)){
+
+            deleteFood(adapter.getRef(item.getOrder()).getKey());
+
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteFood(String key) {
+        foodList.child(key).removeValue();
+    }
+
+    private void showUpdateFoodDialog(final String key, final Food item) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodList.this);
+        alertDialog.setTitle("Edit Food");
+        alertDialog.setMessage("Please fill information");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View addFoodLayout = inflater.inflate(R.layout.add_new_food_layout,null);
+
+        editFoodName=  addFoodLayout.findViewById(R.id.editFoodName);
+        editFoodDescription=  addFoodLayout.findViewById(R.id.editFoodDescription);
+        editFoodPrice=  addFoodLayout.findViewById(R.id.editFoodPrice);
+        editFoodDiscount=  addFoodLayout.findViewById(R.id.editFoodDiscount);
+        buttonSelect = addFoodLayout.findViewById(R.id.buttonSelect);
+        buttonUpload = addFoodLayout.findViewById(R.id.buttonUpload);
+
+        //set default value
+        editFoodName.setText(item.getName());
+        editFoodDescription.setText(item.getDescription());
+        editFoodPrice.setText(item.getPrice());
+        editFoodDiscount.setText(item.getDiscount());
+
+
+
+        buttonSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+            }
+        });
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeImage(item);
+            }
+        });
+
+        alertDialog.setView(addFoodLayout);
+        alertDialog.setIcon(R.drawable.ic_shopping_cart_black_24dp);
+
+        alertDialog.setPositiveButton(Common.CREATE, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                //foodList.push().setValue(newFood);
+                item.setName(editFoodName.getText().toString());
+                item.setPrice(editFoodPrice.getText().toString());
+                item.setDescription(editFoodDescription.getText().toString());
+                item.setDiscount(editFoodDiscount.getText().toString());
+
+                foodList.child(key).setValue(item);
+
+                //Toast.makeText(FoodList.this, "Category " +newFood.getName() +" added!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(rootLayout,"Food "+item.getName()+" updated!", Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+
+        alertDialog.setNegativeButton(Common.CANCEL, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    private void changeImage(final Food item) {
+
+        final ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Uploading");
+        mDialog.show();
+
+        String imageName = UUID.randomUUID().toString();
+        final StorageReference imageFolder = storageReference.child("image/"+imageName);
+        imageFolder.putFile(saveUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                mDialog.dismiss();
+                Toast.makeText(FoodList.this,"Image Uploaded",Toast.LENGTH_SHORT).show();
+                imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //newCategory = new Category(editName.getText().toString(), uri.toString());
+                        item.setImage(uri.toString());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mDialog.dismiss();
+                Toast.makeText(FoodList.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                mDialog.setMessage("Uploading "+ progress+"%");
+            }
+        });
     }
 }
