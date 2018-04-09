@@ -50,6 +50,7 @@ public class SignIn extends AppCompatActivity {
         mDialog.setMessage("Please wait...");
         mDialog.show();
 
+
         final String localTel = tel;
         final String localPwd = pwd;
 

@@ -1,6 +1,7 @@
 package com.example.youzhedou.order_food_app_server_side;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -67,15 +68,19 @@ public class OrderStatus extends AppCompatActivity {
                 requests
         ) {
             @Override
-            protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
+            protected void populateViewHolder(OrderViewHolder viewHolder, final Request model, int position) {
                 viewHolder.textOrderId.setText(adapter.getRef(position).getKey());
                 viewHolder.textOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
                 viewHolder.textOrderAddress.setText(model.getAddress());
                 viewHolder.textOrderTel.setText(model.getTel());
+
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        //TODO
+                        Intent trackingOrder = new Intent(OrderStatus.this, TrackingOrder.class);
+                        Common.currentRequest = model;
+                        startActivity(trackingOrder);
+
                     }
                 });
             }
